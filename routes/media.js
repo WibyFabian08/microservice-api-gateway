@@ -1,10 +1,12 @@
-const {APP_NAME} = process.env;
 const express = require('express');
 const router = express.Router();
 
-// get method
-router.get('/', function(req, res, next) {
-    res.send('This is media service');
-});
+const mediaHandler = require('./handler/media');
+
+// post method
+router.post('/',  mediaHandler.create);
+router.get('/', mediaHandler.getAll);
+router.get('/:id', mediaHandler.getById);
+router.delete('/:id', mediaHandler.destroy);
 
 module.exports = router;
