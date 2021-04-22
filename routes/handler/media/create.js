@@ -21,13 +21,14 @@ module.exports = async (req, res) => {
         .then((result) => {
             return res.json(result.data);
         })
-        .catch((error) => {
-            return res.status(400).json({
-                status: 'error',
-                message: error.message
-            });
-        })
     } catch(error) {
+        if(error.code === 'ECONNREFUSED') {
+            return res.status(500).json({
+                status: 'error',
+                message: 'service unavailable'
+            })
+        }
 
+        return res.json(error.message);
     }
 }

@@ -1,6 +1,5 @@
 const { default: axios } = require("axios")
 
-
 module.exports = async (req, res) => {
     try {
         await axios.get('http://localhost:8080/media')
@@ -8,9 +7,13 @@ module.exports = async (req, res) => {
             return res.json(result.data)
         })
     } catch (error) {
-        return res.status(400).json({
-            status: 'error',
-            message: error.message
-        })
+        if(error.code === 'ECONNREFUSED') {
+            return res.status(500).json({
+                status: 'error',
+                message: 'service unavailable'
+            })
+        }
+
+        return res.json(error.message);
     }
 }
