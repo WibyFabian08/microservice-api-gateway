@@ -10,10 +10,11 @@ module.exports = async (req, res) => {
         if(error.code === 'ECONNREFUSED') {
             return res.status(500).json({
                 status: 'error',
-                message: 'service unavailalbe'
-            })
+                message: 'service unavailable'
+            });
         }
 
-        return res.json(error.message);
+        const { status, data } = error.response;
+        return res.status(status).json(data);
     }
 }

@@ -18,6 +18,8 @@ const lessonsRouter = require('./routes/lessons');
 const imageRouter = require('./routes/imageCourse');
 const myCourseRouter = require('./routes/myCourses');
 const reviewsRouter = require('./routes/review');
+const ordersPaymentRouter = require('./routes/ordersPayment');
+const webhooksRouter = require('./routes/webhook');
 
 // middleware
 const verifyToken = require('./middleware/verifyToken');
@@ -43,5 +45,7 @@ app.use('/lessons', lessonsRouter);
 app.use('/image-course', imageRouter);
 app.use('/my-courses', myCourseRouter);
 app.use('/reviews', reviewsRouter);
+app.use('/orders-payment', ordersPaymentRouter);
+app.use('/webhooks', webhooksRouter);
 
 module.exports = app;

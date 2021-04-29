@@ -1,13 +1,11 @@
 const axios = require('axios');
 
 module.exports = async (req, res) => {
-    const data = req.body;
-    const chapterId = req.params.id;
-
-    await axios.put(`http://localhost:8000/api/chapters/${chapterId}`, data)
+    await axios.get('http://localhost:8001/api/orders')
     .then((result) => {
-        return res.json(result.data)
+        return res.json(result.data);
     })
+
     .catch((error) => {
         if(error.code === 'ECONNREFUSED') {
             return res.status(500).json({

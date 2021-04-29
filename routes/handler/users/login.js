@@ -35,11 +35,8 @@ module.exports = async (req, res) => {
         return res.json({
           token: token,
           refresh_token: refreshToken,
-          data: user.data.data
+          data: user.data.data,
         });
-      })
-      .catch((err) => {
-        return res.json(err.message);
       });
   } catch (error) {
     if (error.code === "ECONNREFUSED") {
@@ -49,6 +46,7 @@ module.exports = async (req, res) => {
       });
     }
 
-    return res.json(error.message);
+    const { status, data } = error.response;
+    return res.status(status).json(data);
   }
 };

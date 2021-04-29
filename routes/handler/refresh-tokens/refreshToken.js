@@ -60,13 +60,14 @@ module.exports = async (req, res) => {
         });
       });
   } catch (error) {
-    if (error.code === "ECONNREFUSED") {
+    if(error.code === 'ECONNREFUSED') {
       return res.status(500).json({
-        status: "error",
-        message: "service unavailable",
+          status: 'error',
+          message: 'service unavailable'
       });
-    }
+  }
 
-    return res.json(error.message);
+  const { status, data } = error.response;
+  return res.status(status).json(data);
   }
 };

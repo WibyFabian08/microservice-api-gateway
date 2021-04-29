@@ -25,10 +25,15 @@ module.exports = async (req, res) => {
 
         return res.json(courseData)
     })
-    .catch((err) => {
-        return res.status(400).json({
-            status: 'error',
-            message: err.message
-        })
+    .catch((error) => {
+        if(error.code === 'ECONNREFUSED') {
+            return res.status(500).json({
+                status: 'error',
+                message: 'service unavailable'
+            });
+        }
+
+        const { status, data } = error.response;
+        return res.status(status).json(data);
     })
 }
