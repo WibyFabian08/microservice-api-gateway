@@ -1,9 +1,9 @@
 const axios = require('axios');
 
 module.exports = async (req, res) => {
-    const data = req.body;
+    const user_id = req.body.data.id;
 
-    await axios.post('http://localhost:8000/api/reviews', data)
+    await axios.post('http://localhost:8000/api/reviews', {user_id: user_id, ...req.body})
     .then((result) => {
         return res.json(result.data)
     })
