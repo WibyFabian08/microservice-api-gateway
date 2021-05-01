@@ -5,10 +5,7 @@ module.exports = async (req, res) => {
 
     await axios.delete(`http://localhost:8000/api/courses/${courseId}`)
     .then((result) => {
-        return res.json({
-            status: 'success',
-            message: result.data
-        })
+        return res.json(result.data)
     })
     .catch((error) => {
         if(error.code === 'ECONNREFUSED') {

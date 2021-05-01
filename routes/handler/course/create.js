@@ -5,10 +5,7 @@ module.exports = async (req, res) => {
 
     await axios.post('http://localhost:8000/api/courses', data)
     .then((result) => {
-        return res.json({
-            status: 'success',
-            data: result.data
-        })
+        return res.json(result.data)
     })
     .catch((error) => {
         if(error.code === 'ECONNREFUSED') {
