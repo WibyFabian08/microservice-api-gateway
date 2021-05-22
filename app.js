@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const cors = require('cors');
+
 // daftar router yang telah dibuat
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -25,6 +27,8 @@ const can = require('./middleware/permission');
 
 const app = express();
 
+app.use(cors('*'));
+
 app.use(logger('dev'));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
@@ -45,5 +49,7 @@ app.use('/my-courses', verifyToken, can('admin', 'student'), myCourseRouter);
 app.use('/reviews', verifyToken, can('admin', 'student'), reviewsRouter);
 app.use('/orders-payment', verifyToken, can('admin', 'student'), ordersPaymentRouter);
 app.use('/webhooks', webhooksRouter);
+
+
 
 module.exports = app;

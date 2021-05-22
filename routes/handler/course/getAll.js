@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports = async (req, res) => {
-    await axios.get('http://localhost:8000/api/courses', {params: {status: 'published'}})
+    await axios.get('http://localhost:8000/api/courses', {params: {...req.query, status: 'published'}})
     .then((result) => {
         const courseData = result.data;
 
